@@ -1,0 +1,57 @@
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Uploader</title>
+</head>
+<body>
+	<div th:if="${message}">
+		<h2 th:text="${message}"/>
+	</div>
+    <!-- We will put our React component inside this div. -->
+    <div id="root"></div>
+    <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+</body>
+</html>
+<script>
+      const e = React.createElement;
+      class FileInput extends React.Component {
+        constructor(props) {
+          super(props);
+          this.handleSubmit = this.handleSubmit.bind(this);
+          this.fileInput = React.createRef();
+        }
+        handleSubmit(event) {
+          event.preventDefault();
+          var formData = new FormData();
+          formData.append("file", this.fileInput.current.files[0]);
+          fetch('/upload', {
+              method: "POST",
+            //  headers: { 'Content-Type': 'multipart/form-data'},
+              body: formData}).then(function (res) {
+          if (res.ok) {
+            alert("Perfect! ");
+          } else if (res.status == 401) {
+            alert("Oops! ");
+          }
+        }, function (e) {
+          alert("Error submitting form!");
+    });
+
+        }
+
+        render() {
+          var btn = e('button', {type: 'submit'}, 'Submit');
+          var inpt = e('input', {type: 'file', name: 'file', ref: this.fileInput}, null);
+          var lbl = e('label', null, 'Upload file:', inpt);
+          var br = e('br');
+          return e('form', {onSubmit: this.handleSubmit}, lbl, br, btn);
+        }
+      }
+
+      ReactDOM.render(
+        e(FileInput),
+        document.getElementById('root')
+      );
+    </script>

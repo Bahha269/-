@@ -1,1 +1,0 @@
-web: java $JAVA_OPTS -jar target/Uploader-1.0-SNAPSHOT.war -Dserver.port=$PORT

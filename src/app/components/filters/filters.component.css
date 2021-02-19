@@ -1,0 +1,21 @@
+.filter-form-select {
+    padding: 0 20px 10px 0;
+}
+select.filter-form__select {
+    height: 2.3em;
+    background-color: #fff;
+    border: 1px solid #706f6f;
+    border-radius: 6px;
+    box-shadow: none;
+
+}
+
+input.filter-form__input {
+    padding: .3em .5em;
+    height: 2.3em;
+    background-color: #fff;
+    border: 1px solid #706f6f;
+    border-radius: 6px;
+    box-shadow: none;
+
+}
